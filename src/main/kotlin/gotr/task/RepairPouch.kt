@@ -8,7 +8,7 @@ import org.rspeer.game.scene.Players
 import org.rspeer.game.script.Task
 import org.rspeer.game.script.TaskDescriptor
 
-@TaskDescriptor(name = "Repair pouch", blocking = true, blockIfSleeping = true)
+@TaskDescriptor(name = "Repair pouch", blocking = true)
 @OptIn(ExperimentalStdlibApi::class)
 class RepairPouch : Task() {
     override fun execute(): Boolean {
@@ -32,7 +32,5 @@ class RepairPouch : Task() {
         return true
     }
 
-    private fun isNpcContacting(): Boolean {
-        return Players.self().animationId == 4413
-    }
+    private fun isNpcContacting(): Boolean = Players.self().animationId == 4413
 }

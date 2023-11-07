@@ -6,6 +6,7 @@ import org.rspeer.game.Game
 import org.rspeer.game.Vars
 import org.rspeer.game.adapter.component.InterfaceComponent
 import org.rspeer.game.adapter.component.inventory.Backpack
+import org.rspeer.game.adapter.scene.SceneObject
 import org.rspeer.game.combat.Combat
 import org.rspeer.game.component.Dialog
 import org.rspeer.game.component.Interfaces
@@ -13,6 +14,7 @@ import org.rspeer.game.event.ChatMessageEvent
 import org.rspeer.game.event.TickEvent
 import org.rspeer.game.position.area.Area
 import org.rspeer.game.scene.Players
+import org.rspeer.game.scene.SceneObjects
 import javax.inject.Singleton
 
 @Singleton
@@ -26,8 +28,8 @@ class MinigameContext {
     var guardianPower = 0
     var portalUp = false
     var nextRunecraftingAltarSpawnSeconds = 120 // 2 minutes at the start
-    private var currentElementalRewardPoints = 0
-    private var currentCatalyticRewardPoints = 0
+    var currentElementalRewardPoints = 0
+    var currentCatalyticRewardPoints = 0
     private var nextPortalTick = -1
 
     val ticksTilPortalSpawn get() = nextPortalTick - Game.getTick()
@@ -70,8 +72,8 @@ class MinigameContext {
         }
 
         // Keep track of current points
-        currentElementalRewardPoints = Vars.get(Vars.Type.VARBIT, 13686)
-        currentCatalyticRewardPoints = Vars.get(Vars.Type.VARBIT, 13685)
+        currentElementalRewardPoints = currentElementalEnergyCount()
+        currentCatalyticRewardPoints = currentCatalyticEnergyCount()
     }
 
     private fun onGameRunningChange(running: Boolean) {
@@ -121,7 +123,7 @@ class MinigameContext {
 
     companion object {
         private val CHECK_POINT_REGEX = Regex("You have (\\d+) catalytic energy and (\\d+) elemental energy")
-        private val REWARD_POINT_REGEX = Regex("Total elemental energy:[^>]+>([\\d,]+).*Total catalytic energy:[^>]+>([\\d,]+).")
+        private val REWARD_POINT_REGEX = Regex("Total elemental energy: +(\\d+).*Total catalytic energy: +(\\d+)")
         const val GUARDIAN_ESSENCE_NAME = "Guardian essence"
         private val GUARDIAN_STONE_NAMES = arrayOf(
             "Elemental guardian stone",
@@ -195,11 +197,14 @@ class MinigameContext {
         @OptIn(ExperimentalStdlibApi::class)
         fun insideAltar() = Altar.entries.any { it.insideAltar() }
 
-        fun catalyticEnergyCount() = Vars.get(Vars.Type.VARBIT, 13685)
+        fun currentCatalyticEnergyCount() = Vars.get(Vars.Type.VARBIT, 13685)
 
-        fun elementalEnergyCount() = Vars.get(Vars.Type.VARBIT, 13686)
+        fun currentElementalEnergyCount() = Vars.get(Vars.Type.VARBIT, 13686)
 
         fun pickaxeSpec() = Combat.getSpecialEnergy() == 100 && Combat.toggleSpecial(true)
+
+        fun hugeFragmentsPortal(): SceneObject? =
+            SceneObjects.query().names("Portal").within(MINIGAME_MAIN_AREA).results().nearest()
     }
 }
 

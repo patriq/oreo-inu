@@ -1,15 +1,16 @@
-package gotr.task.minigame
+package gotr.task.minigame.blocking
 
 import api.pouch.Pouch
-import gotr.MinigameContext.Companion.MINIGAME_MAIN_AREA
+import gotr.MinigameContext.Companion.hugeFragmentsPortal
 import gotr.MinigameContext.Companion.isInsideHugeRemainsMiningArea
 import gotr.MinigameContext.Companion.isMining
 import gotr.MinigameState
+import gotr.task.minigame.MinigameTask
 import org.rspeer.game.position.Position
 import org.rspeer.game.scene.SceneObjects
 import org.rspeer.game.script.TaskDescriptor
 
-@TaskDescriptor(name = "Mine huge fragments")
+@TaskDescriptor(name = "Mine huge fragments", blocking = true)
 class MineHugeFragments : MinigameTask() {
     private companion object {
         private val CORNER_GUARDIAN_REMAINS_POSITION = Position(3601, 9490, 0)
@@ -36,7 +37,7 @@ class MineHugeFragments : MinigameTask() {
         }
 
         // Enter portal
-        val portal = SceneObjects.query().names("Portal").within(MINIGAME_MAIN_AREA).results().nearest()
+        val portal = hugeFragmentsPortal()
         if (portal != null) {
             return portal.interact("Enter")
         }

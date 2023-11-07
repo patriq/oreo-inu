@@ -5,9 +5,7 @@ import api.script.GuiceTaskScript
 import gotr.task.EnterMinigame
 import gotr.task.RepairPouch
 import gotr.task.minigame.*
-import gotr.task.minigame.blocking.LeaveAltar
-import gotr.task.minigame.blocking.LeaveHugeFragmentMine
-import gotr.task.minigame.blocking.LeaveLargeFragmentMine
+import gotr.task.minigame.blocking.*
 import org.rspeer.commons.StopWatch
 import org.rspeer.game.Game
 import org.rspeer.game.component.tdi.Skill
@@ -60,10 +58,12 @@ class GuardiansOfTheRift : GuiceTaskScript() {
     var nextRunecraftingAltarSpawnSeconds = Supplier { minigameContext.nextRunecraftingAltarSpawnSeconds }
 
     @PaintBinding("Reward points")
-    var rewardPoints = Supplier { "${minigameContext.elementalRewardPoints} / ${minigameContext.catalyticRewardPoints}" }
+    var rewardPoints =
+        Supplier { "${minigameContext.elementalRewardPoints} / ${minigameContext.catalyticRewardPoints}" }
 
     @PaintBinding("Potential reward points")
-    var potentialRewardPoints = Supplier { "${minigameContext.potentialElementalRewadPoints} / ${minigameContext.potentialCatalyticRewardPoints}" }
+    var potentialRewardPoints =
+        Supplier { "${minigameContext.potentialElementalRewadPoints} / ${minigameContext.potentialCatalyticRewardPoints}" }
 
     override fun initialize() {
         val eventDispatcher = Game.getEventDispatcher()
@@ -83,15 +83,13 @@ class GuardiansOfTheRift : GuiceTaskScript() {
 
     override fun tasks(): Array<Class<out Task>> {
         return arrayOf(
-            EnterMinigame::class.java,
-
-            // Generic tasks
             RepairPouch::class.java,
-            DropPortalTalisman::class.java,
+            EnterMinigame::class.java,
 
             // Minigames tasks
             EvaluateMinigameState::class.java,
 
+            DropPortalTalisman::class.java,
             LeaveAltar::class.java,
             LeaveHugeFragmentMine::class.java,
             LeaveLargeFragmentMine::class.java,
@@ -101,8 +99,8 @@ class GuardiansOfTheRift : GuiceTaskScript() {
             MineInitialFragments::class.java,
             CraftEssence::class.java,
             Runecraft::class.java,
-            FeedGuardian::class.java,
             PlaceBarrierCell::class.java,
+            FeedGuardian::class.java,
             MineHugeFragments::class.java,
         )
     }

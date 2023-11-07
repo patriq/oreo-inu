@@ -1,16 +1,17 @@
-package gotr.task.minigame
+package gotr.task.minigame.blocking
 
 import gotr.MinigameContext.Companion.isClimbingLadder
 import gotr.MinigameContext.Companion.isInsideLargeRemainsMiningArea
 import gotr.MinigameContext.Companion.isMining
 import gotr.MinigameContext.Companion.pickaxeSpec
 import gotr.MinigameState
+import gotr.task.minigame.MinigameTask
 import org.rspeer.event.Subscribe
 import org.rspeer.game.event.ChatMessageEvent
 import org.rspeer.game.scene.SceneObjects
 import org.rspeer.game.script.TaskDescriptor
 
-@TaskDescriptor(name = "Mine initial fragments", register = true)
+@TaskDescriptor(name = "Mine initial fragments", blocking = true, register = true)
 class MineInitialFragments : MinigameTask() {
     override fun minigameExecute(): Boolean {
         if (context.state != MinigameState.MINE_INITIAL_FRAGMENTS) {

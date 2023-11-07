@@ -1,18 +1,20 @@
-package gotr.task.minigame
+package gotr.task.minigame.blocking
 
 import api.pouch.Pouch
+import gotr.Alignment
 import gotr.Altar
 import gotr.MinigameContext.Companion.containsChargedCells
 import gotr.MinigameContext.Companion.containsGuardianEssence
 import gotr.MinigameContext.Companion.insideAltar
 import gotr.MinigameContext.Companion.unchargedCellCount
 import gotr.MinigameState
+import gotr.task.minigame.MinigameTask
 import org.rspeer.game.component.tdi.Skill
 import org.rspeer.game.component.tdi.Skills
 import org.rspeer.game.scene.SceneObjects
 import org.rspeer.game.script.TaskDescriptor
 
-@TaskDescriptor(name = "Runecrafing essence/charged cells")
+@TaskDescriptor(name = "Runecrafing essence/charged cells", blocking = true)
 class Runecraft : MinigameTask() {
     private var currentAltar: Altar? = null
 
@@ -58,8 +60,17 @@ class Runecraft : MinigameTask() {
                         false
                     }
                 }, // Prioritize the best cell type when crafting charged cells
-                { it.guardian()?.distance() ?: 0.0 } // Prioritize the closest altar
+                { it.alignment != aligmentFocus() }, // Prioritize the alignment we are focusing on
+                { -it.runecraftingLevel }, // Prioritize the highest runecrafting level
             ))
             .firstOrNull()
     }
+
+    private fun aligmentFocus(): Alignment =
+        // Balance the elemental and catalytic rewards
+        if (context.potentialCatalyticRewardPoints > context.potentialElementalRewadPoints) {
+            Alignment.ELEMENTAL
+        } else {
+            Alignment.CATALYTIC
+        }
 }

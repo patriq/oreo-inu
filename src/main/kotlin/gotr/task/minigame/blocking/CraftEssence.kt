@@ -1,14 +1,15 @@
-package gotr.task.minigame
+package gotr.task.minigame.blocking
 
 import api.pouch.Pouch
 import gotr.MinigameContext.Companion.isClimbingLadder
 import gotr.MinigameContext.Companion.isCraftingGuardianEssence
 import gotr.MinigameState
+import gotr.task.minigame.MinigameTask
 import org.rspeer.game.scene.Players
 import org.rspeer.game.scene.SceneObjects
 import org.rspeer.game.script.TaskDescriptor
 
-@TaskDescriptor(name = "Craft essence")
+@TaskDescriptor(name = "Craft essence", blocking = true)
 class CraftEssence : MinigameTask() {
     override fun minigameExecute(): Boolean {
         if (context.state != MinigameState.CRAFT_WITHOUT_FILLING_POUCHES

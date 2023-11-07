@@ -1,13 +1,14 @@
-package gotr.task.minigame
+package gotr.task.minigame.blocking
 
 import gotr.MinigameContext
 import gotr.MinigameState
+import gotr.task.minigame.MinigameTask
 import org.rspeer.game.adapter.component.inventory.Backpack
 import org.rspeer.game.component.EnterInput
 import org.rspeer.game.scene.SceneObjects
 import org.rspeer.game.script.TaskDescriptor
 
-@TaskDescriptor(name = "Collect uncharged cells")
+@TaskDescriptor(name = "Collect uncharged cells", blocking = true)
 class CollectUnchargedCells : MinigameTask() {
     override fun minigameExecute(): Boolean {
         if (context.state != MinigameState.COLLECT_UNCHARGED_CELLS) {
