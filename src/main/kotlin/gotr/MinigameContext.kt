@@ -22,7 +22,7 @@ class MinigameContext {
     var catalyticRewardPoints = 0
     var elementalRewardPoints = 0
     var gamesCompleted = 0
-    var averagePointsPerGame = 0
+    var averagePointsPerGame = 0.0f
 
     var state = MinigameState.DEPOSIT_RUNES
     var isMinigameRunning = false

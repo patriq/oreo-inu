@@ -42,7 +42,7 @@ class GuardiansOfTheRift : GuiceTaskScript() {
     var gamesCompleted = Supplier { minigameContext.gamesCompleted }
 
     @PaintBinding("Average reward points per game")
-    var averagePointsPerGame = Supplier { minigameContext.averagePointsPerGame }
+    var averagePointsPerGame = Supplier { minigameContext.averagePointsPerGame.toFloat() }
 
     @PaintBinding("Current reward points")
     var rewardPoints =
