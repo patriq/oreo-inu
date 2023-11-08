@@ -14,7 +14,6 @@ import org.rspeer.game.script.Task
 import org.rspeer.game.script.meta.ScriptMeta
 import org.rspeer.game.script.meta.paint.PaintBinding
 import org.rspeer.game.script.meta.paint.PaintScheme
-import java.util.function.IntSupplier
 import java.util.function.Supplier
 
 @ScriptMeta(
@@ -39,25 +38,13 @@ class GuardiansOfTheRift : GuiceTaskScript() {
     @PaintBinding("State")
     var minigameState = Supplier { minigameContext.state }
 
-    @PaintBinding("Is minigame playing")
-    var isMinigameRunning = Supplier { minigameContext.isMinigameRunning }
+    @PaintBinding("Games completed")
+    var gamesCompleted = Supplier { minigameContext.gamesCompleted }
 
-    @PaintBinding("Ticks til portal spawn")
-    val ticksTilPortalSpawn = IntSupplier { minigameContext.ticksTilPortalSpawn }
+    @PaintBinding("Average reward points per game")
+    var averagePointsPerGame = Supplier { minigameContext.averagePointsPerGame }
 
-    @PaintBinding("Altars")
-    var activeAltars = Supplier { minigameContext.activeAltars }
-
-    @PaintBinding("Guardian power")
-    var guardianPower = Supplier { minigameContext.guardianPower }
-
-    @PaintBinding("Portal up")
-    var portalUp = Supplier { minigameContext.portalUp }
-
-    @PaintBinding("Seconds til altar spawn")
-    var nextRunecraftingAltarSpawnSeconds = Supplier { minigameContext.nextRunecraftingAltarSpawnSeconds }
-
-    @PaintBinding("Reward points")
+    @PaintBinding("Current reward points")
     var rewardPoints =
         Supplier { "${minigameContext.elementalRewardPoints} / ${minigameContext.catalyticRewardPoints}" }
 

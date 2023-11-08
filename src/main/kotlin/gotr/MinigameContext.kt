@@ -21,6 +21,8 @@ import javax.inject.Singleton
 class MinigameContext {
     var catalyticRewardPoints = 0
     var elementalRewardPoints = 0
+    var gamesCompleted = 0
+    var averagePointsPerGame = 0
 
     var state = MinigameState.DEPOSIT_RUNES
     var isMinigameRunning = false
@@ -104,6 +106,14 @@ class MinigameContext {
             catalyticRewardPoints--
         }
 
+        POINTS_GAINED_REGEX.find(message, 0)?.let {
+            val elementalGameRewardPoints = it.groups[1]?.value?.toInt() ?: 0
+            val catalyticGameRewardPoints = it.groups[2]?.value?.toInt() ?: 0
+            val totalPoints = elementalGameRewardPoints + catalyticGameRewardPoints
+            averagePointsPerGame = (averagePointsPerGame * gamesCompleted + totalPoints) / (gamesCompleted + 1)
+            gamesCompleted++
+        }
+
         REWARD_POINT_REGEX.find(message, 0)?.let {
             elementalRewardPoints = it.groups[1]?.value?.replace(",", "")?.toInt() ?: 0
             catalyticRewardPoints = it.groups[2]?.value?.replace(",", "")?.toInt() ?: 0
@@ -123,6 +133,7 @@ class MinigameContext {
 
     companion object {
         private val CHECK_POINT_REGEX = Regex("You have (\\d+) catalytic energy and (\\d+) elemental energy")
+        private val POINTS_GAINED_REGEX = Regex("Elemental energy attuned: +(\\d+).*Catalytic energy attuned: +(\\d+)")
         private val REWARD_POINT_REGEX = Regex("Total elemental energy: +(\\d+).*Total catalytic energy: +(\\d+)")
         const val GUARDIAN_ESSENCE_NAME = "Guardian essence"
         private val GUARDIAN_STONE_NAMES = arrayOf(
