@@ -4,7 +4,6 @@ import gotr.MinigameContext
 import gotr.MinigameState
 import gotr.task.minigame.MinigameTask
 import org.rspeer.game.adapter.component.inventory.Backpack
-import org.rspeer.game.component.EnterInput
 import org.rspeer.game.scene.SceneObjects
 import org.rspeer.game.script.TaskDescriptor
 
@@ -21,12 +20,7 @@ class CollectUnchargedCells : MinigameTask() {
         }
 
         // Collect uncharged cells
-        if (EnterInput.isOpen()) {
-            EnterInput.initiate(10)
-            return true
-        } else {
-            val unchargedCells = SceneObjects.query().names("Uncharged cells").results().nearest() ?: return false
-            return unchargedCells.interact("Take")
-        }
+        val unchargedCells = SceneObjects.query().names("Uncharged cells").results().nearest() ?: return false
+        return unchargedCells.interact("Take-10")
     }
 }

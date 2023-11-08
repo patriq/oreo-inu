@@ -7,6 +7,7 @@ import gotr.task.RepairPouch
 import gotr.task.minigame.*
 import gotr.task.minigame.blocking.*
 import org.rspeer.commons.StopWatch
+import org.rspeer.event.ScriptService
 import org.rspeer.game.Game
 import org.rspeer.game.component.tdi.Skill
 import org.rspeer.game.script.Task
@@ -24,9 +25,8 @@ import java.util.function.Supplier
     paint = PaintScheme::class,
     regions = [-3]
 )
+@ScriptService(PouchTracker::class)
 class GuardiansOfTheRift : GuiceTaskScript() {
-    private val pouchTracker = PouchTracker()
-
     @PaintBinding("Runtime")
     private val runtime = StopWatch.start()
 
@@ -67,7 +67,6 @@ class GuardiansOfTheRift : GuiceTaskScript() {
 
     override fun initialize() {
         val eventDispatcher = Game.getEventDispatcher()
-        eventDispatcher.subscribe(pouchTracker)
         eventDispatcher.subscribe(minigameContext)
     }
 
@@ -78,7 +77,6 @@ class GuardiansOfTheRift : GuiceTaskScript() {
     override fun shutdown() {
         val eventDispatcher = Game.getEventDispatcher()
         eventDispatcher.unsubscribe(minigameContext)
-        eventDispatcher.unsubscribe(pouchTracker)
     }
 
     override fun tasks(): Array<Class<out Task>> {
@@ -107,5 +105,4 @@ class GuardiansOfTheRift : GuiceTaskScript() {
 
     private val minigameContext
         get() = injector.getInstance(MinigameContext::class.java)
-
 }

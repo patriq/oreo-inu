@@ -52,6 +52,7 @@ class Runecraft : MinigameTask() {
         val currentRunecraftingLevel = Skills.getCurrentLevel(Skill.RUNECRAFTING)
         return currentAltars
             .filter { it.runecraftingLevel <= currentRunecraftingLevel }
+            .filter { it.hasRequiredQuest() }
             .sortedWith(compareBy(
                 {
                     if (context.state == MinigameState.CRAFT_CHARGED_CELL) {

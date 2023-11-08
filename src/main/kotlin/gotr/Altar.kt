@@ -1,6 +1,8 @@
 package gotr
 
 import org.rspeer.game.adapter.scene.SceneObject
+import org.rspeer.game.component.tdi.Quest
+import org.rspeer.game.component.tdi.Quests
 import org.rspeer.game.scene.Players
 import org.rspeer.game.scene.SceneObjects
 
@@ -36,7 +38,8 @@ enum class Altar(
     val guardianName: String,
     val cellType: CellType,
     val alignment: Alignment,
-    val materialId: Int
+    val materialId: Int,
+    val requiredQuest: Quest? = null,
 ) {
     AIR(1, 11339, "Guardian of Air", CellType.WEAK, Alignment.ELEMENTAL, 4353),
     MIND(2, 11083, "Guardian of Mind", CellType.WEAK, Alignment.ELEMENTAL, 4354),
@@ -44,12 +47,12 @@ enum class Altar(
     EARTH(9, 10571, "Guardian of Earth", CellType.STRONG, Alignment.ELEMENTAL, 4356),
     FIRE(14, 10315, "Guardian of Fire", CellType.OVERCHARGED, Alignment.ELEMENTAL, 4357),
     BODY(20, 10059, "Guardian of Body", CellType.WEAK, Alignment.CATALYTIC, 4358),
-    COSMIC(27, 8523, "Guardian of Cosmic", CellType.MEDIUM, Alignment.CATALYTIC, 4359),
+    COSMIC(27, 8523, "Guardian of Cosmic", CellType.MEDIUM, Alignment.CATALYTIC, 4359, Quest.Members.LOST_CITY),
     CHAOS(35, 9035, "Guardian of Chaos", CellType.MEDIUM, Alignment.CATALYTIC, 4360),
     NATURE(44, 9547, "Guardian of Nature", CellType.STRONG, Alignment.CATALYTIC, 4361),
-    LAW(54, 9803, "Guardian of Law", CellType.STRONG, Alignment.CATALYTIC, 4362),
-    DEATH(65, 8779, "Guardian of Death", CellType.OVERCHARGED, Alignment.CATALYTIC, 4363),
-    BLOOD(77, 12875, "Guardian of Blood", CellType.OVERCHARGED, Alignment.CATALYTIC, 4364);
+    LAW(54, 9803, "Guardian of Law", CellType.STRONG, Alignment.CATALYTIC, 4362, Quest.Members.TROLL_STRONGHOLD),
+    DEATH(65, 8779, "Guardian of Death", CellType.OVERCHARGED, Alignment.CATALYTIC, 4363, Quest.Members.MOURNINGS_END_PART_II),
+    BLOOD(77, 12875, "Guardian of Blood", CellType.OVERCHARGED, Alignment.CATALYTIC, 4364, Quest.Members.SINS_OF_THE_FATHER);
 
     fun insideAltar(): Boolean {
         return Players.self().position.regionId == regionId
@@ -57,6 +60,10 @@ enum class Altar(
 
     fun guardian(): SceneObject? {
         return SceneObjects.query().names(guardianName).results().nearest()
+    }
+
+    fun hasRequiredQuest(): Boolean {
+        return requiredQuest == null || Quests.getProgress(requiredQuest) == Quest.Progress.FINISHED
     }
 
     companion object {

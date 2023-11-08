@@ -1,12 +1,13 @@
 package api.pouch
 
 import com.google.common.collect.ImmutableMap
+import com.google.inject.Singleton
+import org.rspeer.event.Service
 import org.rspeer.event.Subscribe
 import org.rspeer.game.Game
 import org.rspeer.game.Vars
 import org.rspeer.game.action.ActionOpcode
 import org.rspeer.game.adapter.component.inventory.Backpack
-import org.rspeer.game.component.Interfaces
 import org.rspeer.game.component.Item
 import org.rspeer.game.event.*
 import java.util.*
@@ -16,7 +17,8 @@ import kotlin.math.min
 
 
 @OptIn(ExperimentalStdlibApi::class)
-class PouchTracker {
+@Singleton
+class PouchTracker: Service {
     companion object {
         private const val POUCH_ADD_FULL_MESSAGE = "You cannot add any more essence to the pouch."
         private val POUCH_CHECK_MESSAGE: Pattern =
@@ -73,7 +75,7 @@ class PouchTracker {
     private var gotrStarted = false
     private var lastItems: Set<Item> = emptySet()
 
-    init {
+    override fun onSubscribe() {
         // Reset pouch state
         for (pouch in Pouch.entries) {
             pouch.holding = 0
@@ -297,5 +299,8 @@ class PouchTracker {
                 (item.bounds.centerY - 5).toInt()
             )
         }
+    }
+
+    override fun onUnsubscribe() {
     }
 }
