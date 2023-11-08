@@ -99,8 +99,8 @@ class GuardiansOfTheRift : GuiceTaskScript() {
             MineInitialFragments::class.java,
             CraftEssence::class.java,
             Runecraft::class.java,
-            PlaceBarrierCell::class.java,
             FeedGuardian::class.java,
+            PlaceBarrierCell::class.java,
             MineHugeFragments::class.java,
         )
     }
