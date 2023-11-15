@@ -1,5 +1,7 @@
-package api.pouch
+package api.service
 
+import api.pouch.ClickOperation
+import api.pouch.Pouch
 import com.google.common.collect.ImmutableMap
 import com.google.inject.Singleton
 import org.rspeer.event.Service
@@ -251,7 +253,7 @@ class PouchTracker: Service {
             ActionOpcode.ITEM_ACTION_4, ActionOpcode.PICKABLE_ACTION_2 -> {
                 menuAction.primary
             }
-            ActionOpcode.COMPONENT_ACTION -> {
+            ActionOpcode.COMPONENT_ACTION, ActionOpcode.COMPONENT_ACTION_2 -> {
                 menuAction.quaternary
             }
             else -> return
@@ -273,6 +275,21 @@ class PouchTracker: Service {
                     }
                     5 -> { // Check pouch
                         checkedPouches.add(ClickOperation(pouch, tick))
+                    }
+                }
+            }
+            ActionOpcode.COMPONENT_ACTION_2 -> {
+                when (menuAction.primary) {
+                    10 -> {
+                        // Fill pouch
+                        if (!pouch.isFullInBank()) {
+                            clickedItems.add(ClickOperation(pouch, tick, 1))
+                            checkedPouches.add(ClickOperation(pouch, tick, 1))
+                        } else {
+                            // Empty pouch
+                            clickedItems.add(ClickOperation(pouch, tick, -1))
+                            checkedPouches.add(ClickOperation(pouch, tick, -1))
+                        }
                     }
                 }
             }
