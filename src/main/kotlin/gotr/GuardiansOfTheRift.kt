@@ -1,6 +1,6 @@
 package gotr
 
-import api.pouch.PouchTracker
+import api.service.PouchTracker
 import api.script.GuiceTaskScript
 import gotr.task.EnterMinigame
 import gotr.task.RepairPouch

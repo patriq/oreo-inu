@@ -1,10 +1,10 @@
 package gotr.task
 
+import api.Animations.isNpcContacting
 import api.pouch.Pouch
 import org.rspeer.game.component.Dialog
 import org.rspeer.game.component.tdi.Magic
 import org.rspeer.game.component.tdi.Spell
-import org.rspeer.game.scene.Players
 import org.rspeer.game.script.Task
 import org.rspeer.game.script.TaskDescriptor
 
@@ -31,6 +31,4 @@ class RepairPouch : Task() {
         Magic.interact(Spell.Lunar.NPC_CONTACT, "Dark Mage")
         return true
     }
-
-    private fun isNpcContacting(): Boolean = Players.self().animationId == 4413
 }
