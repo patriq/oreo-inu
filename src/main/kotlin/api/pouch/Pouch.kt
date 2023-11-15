@@ -1,6 +1,8 @@
 package api.pouch
 
+import org.rspeer.game.Vars
 import org.rspeer.game.adapter.component.inventory.Backpack
+import org.rspeer.game.adapter.component.inventory.Bank
 import org.rspeer.game.component.Item
 import kotlin.math.min
 
@@ -63,6 +65,13 @@ internal enum class Pouch(
         return Backpack.backpack().query().ids(*itemIds).results().firstOrNull()
     }
 
+    fun isFullInBank(): Boolean {
+        if (!Bank.isOpen()) {
+            throw IllegalStateException("Bank must be open")
+        }
+        return Vars.get(261) and (1 shl this.ordinal) != 0
+    }
+
     companion object {
         fun forItem(itemId: Int): Pouch? {
             return when (itemId) {
@@ -98,8 +107,9 @@ internal enum class Pouch(
             val smallestRemainingPouch = Pouch.pouchesInBackpack().filter { !it.isFull }.minByOrNull { it.holdAmount }
             if (smallestRemainingPouch != null) {
                 // Check if we have enough to fill it
-                val essenceInBackpack = Backpack.backpack().query().names("Guardian essence").results().size
-                if (essenceInBackpack >= smallestRemainingPouch.remaining) {
+                val essenceInBackpack =
+                    Backpack.backpack().query().names("Guardian essence", "Pure essence").results().size
+                if (essenceInBackpack >= smallestRemainingPouch.remaining || Backpack.backpack().isFull) {
                     return smallestRemainingPouch.item()?.interact("Fill") ?: false
                 }
             }
