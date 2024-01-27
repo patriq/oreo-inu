@@ -22,7 +22,7 @@ class RepairPouch : Task() {
         }
 
         // Wait process dialog
-        if (Dialog.getOpenType() != null || Dialog.isProcessing() || Dialog.isViewingChatOptions()) {
+        if (Dialog.getOpenType(true) != null || Dialog.isProcessing()) {
             Dialog.process(1)
             return true
         }
