@@ -25,11 +25,12 @@ class ScriptContext {
         SlayerTask.BLOODVELD to MutatedBloodveld(this),
         SlayerTask.HELLHOUNDS to Hellhounds(this),
         SlayerTask.BLACK_DRAGONS to BlackDragons(this),
-        SlayerTask.KURASK to Kurasks(this),
-        SlayerTask.ABERRANT_SPECTRES to Gargoyles(this),
+        SlayerTask.KURASK to Nechryael(this),
+        SlayerTask.ABERRANT_SPECTRES to AberrantSpectres(this),
         SlayerTask.SUQAHS to Suqahs(this),
         SlayerTask.GARGOYLES to Gargoyles(this),
         SlayerTask.STEEL_DRAGONS to SteelDragons(this),
+        SlayerTask.NECHRYAEL to Nechryael(this),
     )
     private var lastSupportedTask: SlayerTaskInfo? = null
 

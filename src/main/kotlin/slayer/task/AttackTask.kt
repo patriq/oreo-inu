@@ -40,13 +40,6 @@ class AttackTask @Inject constructor(private val ctx: ScriptContext) : Task() {
             return false
         }
 
-        // Wear combat gear
-        val gearLoadout = currentTaskInfo.equipmentLoadout()
-        if (!gearLoadout.isWorn) {
-            gearLoadout.equip()
-            return true
-        }
-
         // If we are already attacking, and there is no one else attacking it, then we are good
         val attackingMonster = currentTaskInfo.targetSlayerNpc()
         if (attackingMonster != null && attackingMonster.healthPercent > 0 && !isSomeoneElseAttacking(attackingMonster)) {

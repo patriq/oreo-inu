@@ -10,41 +10,39 @@ object Settings {
      * Blocking list
      */
     val BLOCKING_TASKS = setOf(
-        SlayerTask.ABYSSAL_DEMONS,
-//        SlayerTask.HELLHOUNDS,
-//        SlayerTask.GREATER_DEMONS,
-//        SlayerTask.GARGOYLES,
-//        SlayerTask.BLACK_DEMONS
-        // Task.CAVE_KRAKEN // Skip since no slots
+        SlayerTask.HELLHOUNDS,
+        SlayerTask.CAVE_KRAKEN, // Skip since no slots
+        SlayerTask.GREATER_DEMONS,
+        SlayerTask.BLACK_DEMONS,
+        SlayerTask.DRAKES,
+        SlayerTask.GARGOYLES,
+        SlayerTask.WYRMS,
     )
 
     /**
      * Skipping tasks
      */
     val SKIPPING_TASKS = setOf(
-        // Block
-        SlayerTask.CAVE_KRAKEN,
-
         // Personal skip
-        SlayerTask.SMOKE_DEVILS,
-        SlayerTask.MITHRIL_DRAGONS,
-        SlayerTask.ADAMANT_DRAGONS,
-        SlayerTask.RUNE_DRAGONS,
+//        SlayerTask.SMOKE_DEVILS,
+//        SlayerTask.MITHRIL_DRAGONS,
+//        SlayerTask.ADAMANT_DRAGONS,
+//        SlayerTask.RUNE_DRAGONS,
 
-        // Spreadsheet skip (https://docs.google.com/spreadsheets/d/14-rahdjUzFiWe5STNV87GBekIc45FtXwYmH58JPUsVc)
-        SlayerTask.DRAKES,
-        SlayerTask.WYRMS,
+        // Spreadsheet skip (https://docs.google.com/spreadsheets/d/171KtsAiFqC1oKSBsGjUXviu4WBSlMG7gsYkls6PE7tw/edit#gid=943565354)
+        SlayerTask.ABERRANT_SPECTRES,
+        SlayerTask.FIRE_GIANTS,
         SlayerTask.SKELETAL_WYVERNS,
         SlayerTask.SPIRITUAL_CREATURES,
-        // Task.FIRE_GIANTS,
-        // Task.ABERRANT_SPECTRES,
+        SlayerTask.STEEL_DRAGONS,
+        SlayerTask.TROLLS,
+        SlayerTask.ANKOU,
         SlayerTask.IRON_DRAGONS,
-        SlayerTask.FOSSIL_ISLAND_WYVERNS,
+        SlayerTask.BLUE_DRAGONS,
         SlayerTask.CAVE_HORRORS,
         SlayerTask.ELVES,
-        // Task.KURASK,
-        SlayerTask.BLUE_DRAGONS, // Could do vork instead maybe?
-        SlayerTask.WATERFIENDS
+        SlayerTask.KURASK,
+        SlayerTask.WATERFIENDS,
     )
 
     /**
@@ -93,20 +91,6 @@ object Settings {
             Equipment.Slot.FEET to "Dragon boots"
         )
 
-    val WYRMS_GEAR = listOf(
-        SLAYER_HELM,
-        "Dragon hunter lance",
-        "Dragon defender",
-        "Bandos chestplate",
-        "Honourable blessing",
-        "Amulet of torture",
-        "Berserker ring (i)",
-        "Ferocious gloves",
-        "Bandos tassets",
-        "Fire cape",
-        "Boots of stone"
-    )
-
     /**
      * Food
      */
@@ -135,11 +119,6 @@ object Settings {
         "Antidote++(4)" to RestockMeta(5952, 20, -2),
         "Extended super antifire(4)" to RestockMeta(22209, 20, -2),
     )
-
-    /**
-     * Looting
-     */
-    const val LOOT_TAB = 0
 
     // From https://oldschool.runescape.wiki/w/Drop_table#Seed_tables
     val SEEDS = arrayOf(

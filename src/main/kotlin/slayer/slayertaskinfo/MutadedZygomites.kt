@@ -8,6 +8,7 @@ import org.rspeer.game.position.area.Area
 import org.rspeer.game.script.Task
 import org.rspeer.game.web.Web
 import slayer.ScriptContext
+import slayer.data.Bracelet
 import slayer.data.Constants
 import slayer.data.ItemConfig
 import slayer.teleportHouse
@@ -30,6 +31,8 @@ class MutadedZygomites(ctx: ScriptContext) : BaseSlayerTaskInfo(ctx) {
             ItemConfig(Constants.FUNGICIDE_SPRAY, 5, 1)
         )
     }
+
+    override fun bracelet(): Bracelet = Bracelet.EXPEDITIOUS
 
     override fun useItems(): Array<String> = Constants.FUNGICIDE_SPRAY
 

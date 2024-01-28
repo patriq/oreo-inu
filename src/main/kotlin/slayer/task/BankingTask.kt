@@ -10,8 +10,6 @@ import org.rspeer.game.adapter.component.inventory.Bank
 import org.rspeer.game.component.*
 import org.rspeer.game.config.item.entry.ItemEntry
 import org.rspeer.game.config.item.loadout.BackpackLoadout
-import org.rspeer.game.movement.Movement
-import org.rspeer.game.position.Position
 import org.rspeer.game.position.area.Area
 import org.rspeer.game.script.Task
 import org.rspeer.game.script.TaskDescriptor
@@ -22,7 +20,6 @@ import org.rspeer.game.service.stockmarket.StockMarketService
 import slayer.*
 import slayer.data.Constants.HERB_SACK
 import slayer.data.Constants.SEED_BOX
-import java.util.*
 import java.util.function.Consumer
 import javax.inject.Inject
 
@@ -153,7 +150,12 @@ class BankingTask @Inject constructor(
         private val stockMarket: StockMarketService,
         private val cache: InventoryCache
     ) : Consumer<ItemEntry> {
-        override fun accept(t: ItemEntry) {
+        override fun accept(missingItem: ItemEntry) {
+            // If the item is in the backpack then we don't need to bank it
+            if (Inventories.backpack().getCount { missingItem.getContained(it) } >= missingItem.quantity) {
+                return
+            }
+
             for (entry in loadout) {
                 val meta = entry.restockMeta ?: continue
 

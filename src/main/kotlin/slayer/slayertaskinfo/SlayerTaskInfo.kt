@@ -12,6 +12,7 @@ import org.rspeer.game.scene.Npcs
 import org.rspeer.game.scene.Players
 import org.rspeer.game.script.Task
 import slayer.ScriptContext
+import slayer.data.Bracelet
 import slayer.data.Constants.MUST_HAVE_INVENTORY
 import slayer.data.ItemConfig
 
@@ -22,13 +23,15 @@ abstract class SlayerTaskInfo(protected val ctx: ScriptContext) {
 
     abstract fun prayers(): Array<Prayer>
 
-    abstract fun equipment(): Map<Equipment.Slot, String>
+    protected abstract fun equipment(): Map<Equipment.Slot, String>
 
-    abstract fun items(): List<ItemConfig>
+    protected abstract fun items(): List<ItemConfig>
 
     abstract fun walk(executingTask: Task)
 
     open fun useItems(): Array<String> = arrayOf()
+
+    open fun bracelet(): Bracelet = Bracelet.NONE
 
     /**
      * Gets the task NPC that the player is currently targetting.
@@ -49,9 +52,12 @@ abstract class SlayerTaskInfo(protected val ctx: ScriptContext) {
     fun equipmentLoadout(): EquipmentLoadout {
         val loadout = EquipmentLoadout(this.javaClass.simpleName)
         equipment().forEach { (slot, item) ->
-            loadout.add(
+            val entry = if (slot == Equipment.Slot.HANDS && bracelet() != Bracelet.NONE) {
+                ItemEntryBuilder().key(bracelet().itemName).equipmentSlot(Equipment.Slot.HANDS).quantity(1).build()
+            } else {
                 ItemEntryBuilder().key(item).equipmentSlot(slot).quantity(1).build()
-            )
+            }
+            loadout.add(entry)
         }
         return loadout
     }
@@ -60,11 +66,15 @@ abstract class SlayerTaskInfo(protected val ctx: ScriptContext) {
         val loadout = BackpackLoadout(this.javaClass.simpleName)
         MUST_HAVE_INVENTORY.forEach { loadout.add(ItemEntryBuilder().key(it).quantity(1).build()) }
         items().forEach { loadout.add(it.toItemEntry()) }
+        // Bring an extra bracelet if we're using one
+        if (bracelet() != Bracelet.NONE) {
+            loadout.add(ItemEntryBuilder().key(bracelet().itemName).quantity(1).build())
+        }
         return loadout
     }
 
     private fun containsAllEquipment(): Boolean {
-        val equipment = equipment().values.toTypedArray()
+        val equipment = equipmentLoadout().map { it.key }.toTypedArray()
         val count = Inventories.equipment()
             .getCount { it.nameContains(*equipment).results() } + Inventories.backpack()
             .getCount { it.nameContains(*equipment).results() }

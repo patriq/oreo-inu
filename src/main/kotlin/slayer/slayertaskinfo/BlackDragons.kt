@@ -10,6 +10,7 @@ import org.rspeer.game.scene.SceneObjects
 import org.rspeer.game.script.Task
 import org.rspeer.game.web.Web
 import slayer.ScriptContext
+import slayer.data.Bracelet
 import slayer.data.ItemConfig
 import slayer.data.Settings.ANTIFIRE_POTION
 import slayer.data.Settings.DRAGON_GEAR
@@ -37,6 +38,8 @@ class BlackDragons(ctx: ScriptContext) : BaseSlayerTaskInfo(ctx) {
             ItemConfig(ANTIFIRE_POTION.allDoseNames, 1, if (remainingAntifireSeconds() > 0) 0 else 1),
         )
     }
+
+    override fun bracelet(): Bracelet = Bracelet.EXPEDITIOUS
 
     override fun walk(executingTask: Task) {
         if (MYTHIC_DUNGEON.containsPlayer()) {

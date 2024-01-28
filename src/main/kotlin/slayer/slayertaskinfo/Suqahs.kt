@@ -9,6 +9,7 @@ import org.rspeer.game.position.area.Area
 import org.rspeer.game.script.Task
 import org.rspeer.game.web.Web
 import slayer.ScriptContext
+import slayer.data.Bracelet
 import slayer.data.ItemConfig
 import slayer.data.Settings
 import slayer.data.Settings.FOOD
@@ -32,6 +33,8 @@ class Suqahs(ctx: ScriptContext) : BaseSlayerTaskInfo(ctx) {
         ItemConfig(Settings.PRAYER_POTION.allDoseNames, 5, 0),
         ItemConfig(intArrayOf(FOOD), 15, 0),
     )
+
+    override fun bracelet(): Bracelet = Bracelet.EXPEDITIOUS
 
     override fun walk(executingTask: Task) {
         if (LUNAR_ISLE_AREA.containsPlayer()) {

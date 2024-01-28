@@ -64,8 +64,8 @@ class Slayer : TaskScript() {
             ToggleRunTask::class.java,
 
             // Core logic to check/get/skip tasks and handle prayer (in case we need to stop praying)
-            PrayTask::class.java,
             CheckSlayerAssignmentTask::class.java,
+            PrayTask::class.java,
             GetSlayerAssignmentTask::class.java,
             SkipSlayerAssignmentTask::class.java,
 
@@ -74,6 +74,7 @@ class Slayer : TaskScript() {
             WalkToTaskAreaTask::class.java,
 
             // Combat related (except prayer)
+            WearCombatEquipmentTask::class.java,
             EatAndDrinkTask::class.java,
             LootTask::class.java,
             UseItemTask::class.java,
