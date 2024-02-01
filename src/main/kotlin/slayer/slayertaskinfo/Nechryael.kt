@@ -49,12 +49,11 @@ class Nechryael(ctx: ScriptContext) : BaseSlayerTaskInfo(ctx) {
     override fun walk(executingTask: Task) {
         if (CAVE_AREA.containsPlayer()) {
             if (BEFORE_SHORTCUT_AREA.containsPlayer()) {
-                val shortcut = SceneObjects.query().ids(36692).results().nearest() ?: return
-                shortcut.interact("Pass")
+                SceneObjects.query().ids(36692).results().nearest()?.interact("Pass")
                 return
             }
 
-            Web.pathTo(Position(3222, 12421, 0))?.step()
+            Movement.walkTowards(Position(3222, 12421, 0))
             return
         }
 

@@ -21,6 +21,7 @@ import javax.inject.Inject
 
 @TaskDescriptor(
     name = "Eat and drink",
+    blockIfSleeping = true,
 )
 class EatAndDrinkTask @Inject constructor(private val ctx: ScriptContext) : Task() {
     private companion object {
@@ -44,7 +45,7 @@ class EatAndDrinkTask @Inject constructor(private val ctx: ScriptContext) : Task
         val needPrayer = (Prayers.getPoints() < Random.nextInt(10, 20) && PotionType.PRAYER_TYPE.inventoryContains())
                 || Prayers.getPoints() == 0
         val needFood = (Health.getCurrent() < Random.nextInt(20, 40) && Inventories.backpack()
-            .contains { it.ids(FOOD).results() }) || Health.getPercent() < 5
+            .contains { it.ids(FOOD).results() }) || Health.getPercent() < 10
         val needAntifire = remainingAntifireSeconds() < Random.nextInt(1, 2) && ANTIFIRE_TASKS.contains(ctx.getTask())
         val needAntipoison = Combat.isPoisoned()
         // Check boosting potions
@@ -101,6 +102,7 @@ class EatAndDrinkTask @Inject constructor(private val ctx: ScriptContext) : Task
         // If we run out of essential items, just teleport away
         if (panic) {
             teleportHouse()
+            sleep(3)
             return true
         }
         return needPrayer || needFood || needAntifire || needAntipoison || needCombatPotion

@@ -1,19 +1,19 @@
 package slayer.slayertaskinfo
 
-import api.containsPlayer
 import api.teleport.NexusPortal
 import org.rspeer.game.House
 import org.rspeer.game.adapter.component.inventory.Equipment
 import org.rspeer.game.component.tdi.Prayer
-import org.rspeer.game.position.Position
 import org.rspeer.game.position.area.Area
-import org.rspeer.game.scene.SceneObjects
 import org.rspeer.game.script.Task
-import org.rspeer.game.web.Web
-import slayer.*
+import slayer.ScriptContext
+import slayer.data.Bracelet
 import slayer.data.ItemConfig
 import slayer.data.Settings
 import slayer.dungeon.KourendCatacombs
+import slayer.remainingAntifireSeconds
+import slayer.teleportHouse
+import slayer.travelNexusPortal
 
 class SteelDragons(ctx: ScriptContext) : BaseSlayerTaskInfo(ctx) {
     override fun monsterNames(): Array<String> = arrayOf("Steel dragon")
@@ -29,6 +29,8 @@ class SteelDragons(ctx: ScriptContext) : BaseSlayerTaskInfo(ctx) {
             ItemConfig(Settings.ANTIFIRE_POTION.allDoseNames, 2, if (remainingAntifireSeconds() > 0) 0 else 1),
         )
     }
+
+    override fun bracelet(): Bracelet = Bracelet.EXPEDITIOUS
 
     override fun walk(executingTask: Task) {
         if (KourendCatacombs.outsideMainEntrance() || KourendCatacombs.isInsideDungeon()) {

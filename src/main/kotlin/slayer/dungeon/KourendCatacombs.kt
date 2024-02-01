@@ -18,7 +18,8 @@ object KourendCatacombs {
         HELLHOUNDS_NORTH_WEST(Area.rectangular(1654, 10076, 1634, 10055, 0), Position(1645, 10064, 0)),
         FIRE_GIANTS_WEST(Area.rectangular(1641, 10073, 1613, 10046, 0), Position(1631, 10056, 0)),
         STEEL_DRAGONS_WEST(Area.rectangular(1596, 10065, 1616, 10048, 0), Position(1608, 10054, 0)),
-        DUST_DEVILS_EAST(Area.rectangular(1722, 10038, 1708, 10025, 0), Position(1715, 10032, 0))
+        DUST_DEVILS_EAST(Area.rectangular(1722, 10038, 1708, 10025, 0), Position(1715, 10032, 0)),
+        ABYSSAL_DEMONS_NORTH(Area.rectangular(1667, 10101, 1680, 10083, 0), Position(1673, 10087, 0)),
     }
 
     private val INSIDE_DUNGEON_AREA = Area.rectangular(1747, 10112, 1589, 9978, 0)

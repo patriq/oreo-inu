@@ -1,6 +1,7 @@
 package slayer.task
 
 import api.containsPlayer
+import api.equipEach
 import org.rspeer.game.script.Task
 import org.rspeer.game.script.TaskDescriptor
 import slayer.ScriptContext
@@ -8,10 +9,8 @@ import javax.inject.Inject
 
 @TaskDescriptor(
     name = "Wear combat equipment",
-    blocking = true,
-    blockIfSleeping = true,
 )
-class WearCombatEquipmentTask @Inject constructor(private val ctx: ScriptContext): Task() {
+class WearCombatEquipmentTask @Inject constructor(private val ctx: ScriptContext) : Task() {
     override fun execute(): Boolean {
         val currentTaskInfo = ctx.currentTaskInfo() ?: return false
         val standingArea = currentTaskInfo.standingArea()
@@ -25,7 +24,7 @@ class WearCombatEquipmentTask @Inject constructor(private val ctx: ScriptContext
             return false
         }
 
-        gearLoadout.equip()
+        gearLoadout.equipEach()
         return true
     }
 }

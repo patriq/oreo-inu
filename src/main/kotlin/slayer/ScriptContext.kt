@@ -31,6 +31,9 @@ class ScriptContext {
         SlayerTask.GARGOYLES to Gargoyles(this),
         SlayerTask.STEEL_DRAGONS to SteelDragons(this),
         SlayerTask.NECHRYAEL to Nechryael(this),
+        SlayerTask.ADAMANT_DRAGONS to AdamantDragons(this),
+        SlayerTask.ABYSSAL_DEMONS to AbyssalDemons(this),
+        SlayerTask.RUNE_DRAGONS to RuneDragons(this),
     )
     private var lastSupportedTask: SlayerTaskInfo? = null
 

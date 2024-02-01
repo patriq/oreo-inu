@@ -9,6 +9,7 @@ import org.rspeer.game.scene.SceneObjects
 import org.rspeer.game.script.Task
 import org.rspeer.game.web.Web
 import slayer.ScriptContext
+import slayer.data.Bracelet
 import slayer.data.Constants.XERICS_TALISMAN
 import slayer.teleportHouse
 
@@ -23,6 +24,8 @@ class Trolls(ctx: ScriptContext) : BaseSlayerTaskInfo(ctx) {
     override fun standingArea(): Area = STANDING_AREA
 
     override fun prayers(): Array<Prayer> = arrayOf(Prayer.Modern.PROTECT_FROM_MELEE)
+
+    override fun bracelet(): Bracelet = Bracelet.EXPEDITIOUS
 
     override fun walk(executingTask: Task) {
         if (OUTSIDE_AREA.containsPlayer()) {

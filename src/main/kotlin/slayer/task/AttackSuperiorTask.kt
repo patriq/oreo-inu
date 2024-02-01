@@ -20,14 +20,12 @@ class AttackSuperiorTask @Inject constructor(private val ctx: ScriptContext) : T
             "King kurask",
             "Abhorrent spectre",
             "Choke devil",
-
-            // Unsupported (will beep)
+            "Greater abyssal demon",
             "Nechryarch",
             "Marble gargoyle",
             "Night beast",
         )
         private val UNSUPPORTED = arrayOf(
-            SlayerTask.NECHRYAEL,
             SlayerTask.GARGOYLES,
             SlayerTask.DARK_BEASTS,
         )

@@ -1,10 +1,13 @@
 package slayer
 
 import org.rspeer.commons.StopWatch
+import org.rspeer.commons.logging.Log
 import org.rspeer.event.ScriptService
+import org.rspeer.event.Subscribe
 import org.rspeer.game.Game
 import org.rspeer.game.component.InventoryType
 import org.rspeer.game.component.tdi.Skill
+import org.rspeer.game.event.AnimationEvent
 import org.rspeer.game.script.Task
 import org.rspeer.game.script.TaskScript
 import org.rspeer.game.script.meta.ScriptMeta
@@ -13,6 +16,7 @@ import org.rspeer.game.script.meta.paint.PaintScheme
 import org.rspeer.game.script.tools.RestockTask
 import org.rspeer.game.service.inventory.InventoryCache
 import org.rspeer.game.service.stockmarket.StockMarketService
+import slayer.data.Settings
 import slayer.data.SlayerTask
 import slayer.listener.SlayerChatListener
 import slayer.task.*
@@ -75,7 +79,9 @@ class Slayer : TaskScript() {
 
             // Combat related (except prayer)
             WearCombatEquipmentTask::class.java,
+            FlickAggressivePrayerTask::class.java,
             EatAndDrinkTask::class.java,
+            DodgeAttackTask::class.java,
             LootTask::class.java,
             UseItemTask::class.java,
             AttackSuperiorTask::class.java,

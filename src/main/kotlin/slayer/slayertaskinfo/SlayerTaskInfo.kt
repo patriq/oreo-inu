@@ -66,9 +66,9 @@ abstract class SlayerTaskInfo(protected val ctx: ScriptContext) {
         val loadout = BackpackLoadout(this.javaClass.simpleName)
         MUST_HAVE_INVENTORY.forEach { loadout.add(ItemEntryBuilder().key(it).quantity(1).build()) }
         items().forEach { loadout.add(it.toItemEntry()) }
-        // Bring an extra bracelet if we're using one
+        // Bring two extra bracelet if we're using one
         if (bracelet() != Bracelet.NONE) {
-            loadout.add(ItemEntryBuilder().key(bracelet().itemName).quantity(1).build())
+            loadout.add(ItemEntryBuilder().key(bracelet().itemName).quantity(2).build())
         }
         return loadout
     }

@@ -2,6 +2,9 @@ package slayer.data
 
 import org.rspeer.game.Game
 import org.rspeer.game.adapter.component.inventory.Equipment
+import org.rspeer.game.combat.Combat.WeaponType
+import org.rspeer.game.component.tdi.Prayer
+import org.rspeer.game.component.tdi.Skill
 import org.rspeer.game.config.item.restock.RestockMeta
 import slayer.data.Constants.SLAYER_HELM
 
@@ -13,9 +16,9 @@ object Settings {
         SlayerTask.HELLHOUNDS,
         SlayerTask.CAVE_KRAKEN, // Skip since no slots
         SlayerTask.GREATER_DEMONS,
-        SlayerTask.BLACK_DEMONS,
-        SlayerTask.DRAKES,
-        SlayerTask.GARGOYLES,
+//        SlayerTask.BLACK_DEMONS,
+//        SlayerTask.DRAKES,
+//        SlayerTask.GARGOYLES,
         SlayerTask.WYRMS,
     )
 
@@ -23,25 +26,24 @@ object Settings {
      * Skipping tasks
      */
     val SKIPPING_TASKS = setOf(
-        // Personal skip
-//        SlayerTask.SMOKE_DEVILS,
-//        SlayerTask.MITHRIL_DRAGONS,
-//        SlayerTask.ADAMANT_DRAGONS,
-//        SlayerTask.RUNE_DRAGONS,
+        // Block (cant block more :c)
+        SlayerTask.DRAKES,
+//        SlayerTask.GARGOYLES,
+//        SlayerTask.BLACK_DEMONS,
 
         // Spreadsheet skip (https://docs.google.com/spreadsheets/d/171KtsAiFqC1oKSBsGjUXviu4WBSlMG7gsYkls6PE7tw/edit#gid=943565354)
         SlayerTask.ABERRANT_SPECTRES,
         SlayerTask.FIRE_GIANTS,
         SlayerTask.SKELETAL_WYVERNS,
         SlayerTask.SPIRITUAL_CREATURES,
-        SlayerTask.STEEL_DRAGONS,
-        SlayerTask.TROLLS,
-        SlayerTask.ANKOU,
+//        SlayerTask.STEEL_DRAGONS,
+//        SlayerTask.TROLLS,
+//        SlayerTask.ANKOU,
         SlayerTask.IRON_DRAGONS,
         SlayerTask.BLUE_DRAGONS,
         SlayerTask.CAVE_HORRORS,
         SlayerTask.ELVES,
-        SlayerTask.KURASK,
+//        SlayerTask.KURASK,
         SlayerTask.WATERFIENDS,
     )
 
@@ -65,7 +67,7 @@ object Settings {
     val DRAGON_GEAR = mapOf(
         Equipment.Slot.HEAD to SLAYER_HELM,
         Equipment.Slot.MAINHAND to "Ghrazi rapier",
-        Equipment.Slot.OFFHAND to "Anti-dragon shield",
+        Equipment.Slot.OFFHAND to "Dragon defender",
         Equipment.Slot.CHEST to "Fighter torso",
         Equipment.Slot.NECK to "Amulet of torture",
         Equipment.Slot.QUIVER to "Rada's blessing 1",
@@ -90,6 +92,14 @@ object Settings {
             Equipment.Slot.CAPE to "Fire cape",
             Equipment.Slot.FEET to "Dragon boots"
         )
+
+    /**
+     * Offensive prayers
+     */
+    val ATTACKING_ANIMATIONS = listOf(8145)
+    val OFFENSIVE_PRAYERS = mapOf<WeaponType, Prayer>(
+        WeaponType.TYPE_17 to Prayer.Modern.PIETY,
+    )
 
     /**
      * Food
@@ -147,7 +157,9 @@ object Settings {
         "Imbued heart",
         "Eternal gem",
         "Smouldering stone",
-        "Draconic visage"
+        "Draconic visage",
+        "Dragon limbs",
+        "Dragon metal slice",
     )
 
     val TASK_LOOT = mapOf(
@@ -182,7 +194,14 @@ object Settings {
         SlayerTask.DARK_BEASTS to setOf(
             "Dark bow",
             "Death talisman"
-        )
+        ),
+        SlayerTask.ADAMANT_DRAGONS to setOf(
+            "Adamantite bar",
+            "Adamantite ore",
+        ),
+        SlayerTask.RUNE_DRAGONS to setOf(
+            "Dragonstone", // Noted
+        ),
     )
 
     val SHARED_LOOT = setOf(
@@ -196,6 +215,11 @@ object Settings {
         "Law rune",
         "Chaos rune",
         "Soul rune",
+        "Wrath rune",
+        "Dragon bolts (unf)",
+        "Adamant bolts(unf)",
+        "Runite bolts (unf)",
+        "Rune javelin heads",
 
         // Untradables
         "Dark totem top",
@@ -221,10 +245,15 @@ object Settings {
         "Rune kiteshield",
         "Rune longsword",
         "Rune 2h sword",
+        "Rune mace",
+        "Rune scimitar",
+        "Rune warhammer",
         "Rune full helm",
         "Rune med helm",
         "Rune battleaxe",
         "Rune chainbody",
+        "Rune platebody",
+        "Rune platelegs",
         "Runite bar",
         "Runite ore",
 

@@ -1,12 +1,15 @@
 package slayer.task
 
 import api.containsPlayer
+import api.equipEach
+import api.missingBagged
 import api.teleport.JewelleryBox
 import org.rspeer.commons.logging.Log
 import org.rspeer.game.House
 import org.rspeer.game.adapter.component.StockMarketTransaction
 import org.rspeer.game.adapter.component.StockMarketable
 import org.rspeer.game.adapter.component.inventory.Bank
+import org.rspeer.game.adapter.component.inventory.Equipment
 import org.rspeer.game.component.*
 import org.rspeer.game.config.item.entry.ItemEntry
 import org.rspeer.game.config.item.loadout.BackpackLoadout
@@ -73,9 +76,9 @@ class BankingTask @Inject constructor(
         // Get all gear first
         val equipmentLoadout = taskInfo.equipmentLoadout()
         if (!equipmentLoadout.isWorn) {
-            // Equip gear if we have it
-            if (equipmentLoadout.bagged.isNotEmpty()) {
-                equipmentLoadout.equip()
+            // Equip gear if we have it and it is missing
+            if (equipmentLoadout.missingBagged().isNotEmpty()) {
+                equipmentLoadout.equipEach()
                 return true
             }
 

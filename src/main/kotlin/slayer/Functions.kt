@@ -1,9 +1,6 @@
 package slayer
 
-import api.teleport.ConstructionCape
-import api.teleport.FairyRing
-import api.teleport.JewelleryBox
-import api.teleport.NexusPortal
+import api.teleport.*
 import org.rspeer.game.House
 import org.rspeer.game.Vars
 import org.rspeer.game.combat.Combat
@@ -80,4 +77,9 @@ fun teleportMythicalCape() {
 fun teleportConstructionCape(location: ConstructionCape.Location): Boolean {
     val cape = Inventories.backpack().getItems(CONSTRUCTION_CAPE).firstOrNull() ?: return false
     return ConstructionCape.teleport(cape, location, true)
+}
+
+fun teleportDigsitePendant(location: DigsitePendant.Location): Boolean {
+    val pendant = SceneObjects.query().names("Digsite Pendant").results().nearest() ?: return false
+    return DigsitePendant.teleport(pendant, location)
 }
