@@ -12,6 +12,7 @@ import org.rspeer.game.adapter.component.inventory.Bank
 import org.rspeer.game.adapter.component.inventory.Equipment
 import org.rspeer.game.component.*
 import org.rspeer.game.config.item.entry.ItemEntry
+import org.rspeer.game.config.item.entry.builder.ItemEntryBuilder
 import org.rspeer.game.config.item.loadout.BackpackLoadout
 import org.rspeer.game.position.area.Area
 import org.rspeer.game.script.Task
@@ -130,6 +131,15 @@ class BankingTask @Inject constructor(
         }
 
         override fun accept(t: Task) {
+            val loadout = BackpackLoadout("ge")
+            loadout.add(ItemEntryBuilder().key("Construct. cape(t)").build())
+
+            if (!loadout.isBagged) {
+                Bank.open()
+                loadout.withdraw(Inventories.bank())
+                return
+            }
+
             if (Bank.isOpen()) {
                 Interfaces.closeSubs()
             }
