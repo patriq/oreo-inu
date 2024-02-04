@@ -84,9 +84,10 @@ class BankingTask @Inject constructor(
             }
 
             // Withdraw gear otherwise
-            val backpack = equipmentLoadout.toBackpackLoadout("slayer")
+            val backpackLoadOut = equipmentLoadout.toBackpackLoadout("slayer")
+            backpackLoadOut.outOfItemListener = OutOfItemListener(backpackLoadOut, stockMarket, inventoryCache)
             Bank.open()
-            backpack.withdraw(Inventories.bank())
+            backpackLoadOut.withdraw(Inventories.bank())
             return true
         }
 

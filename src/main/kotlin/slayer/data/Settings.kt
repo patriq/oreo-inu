@@ -128,6 +128,8 @@ object Settings {
         "Super combat potion(4)" to RestockMeta(12695, 50, -2),
         "Antidote++(4)" to RestockMeta(5952, 20, -2),
         "Extended super antifire(4)" to RestockMeta(22209, 20, -2),
+        Bracelet.SLAUGHTER.itemName to RestockMeta(21183, 100, -2),
+        Bracelet.EXPEDITIOUS.itemName to RestockMeta(21177, 100, -2),
     )
 
     // From https://oldschool.runescape.wiki/w/Drop_table#Seed_tables

@@ -53,7 +53,7 @@ abstract class SlayerTaskInfo(protected val ctx: ScriptContext) {
         val loadout = EquipmentLoadout(this.javaClass.simpleName)
         equipment().forEach { (slot, item) ->
             val entry = if (slot == Equipment.Slot.HANDS && bracelet() != Bracelet.NONE) {
-                ItemEntryBuilder().key(bracelet().itemName).equipmentSlot(Equipment.Slot.HANDS).quantity(1).build()
+                bracelet().toItemEntry(1)!!
             } else {
                 ItemEntryBuilder().key(item).equipmentSlot(slot).quantity(1).build()
             }
@@ -67,9 +67,7 @@ abstract class SlayerTaskInfo(protected val ctx: ScriptContext) {
         MUST_HAVE_INVENTORY.forEach { loadout.add(ItemEntryBuilder().key(it).quantity(1).build()) }
         items().forEach { loadout.add(it.toItemEntry()) }
         // Bring two extra bracelet if we're using one
-        if (bracelet() != Bracelet.NONE) {
-            loadout.add(ItemEntryBuilder().key(bracelet().itemName).quantity(2).build())
-        }
+        bracelet().toItemEntry(2)?.let { loadout.add(it) }
         return loadout
     }
 

@@ -41,7 +41,8 @@ class DodgeAttackTask : Task() {
         }
 
         // Get a safe tile that's melee distance from the targetting npc
-        val projectileSenderArea = Npcs.query().targeting(Players.self()).results().first().area
+        val projectileSenderArea =
+            Npcs.query().targeting(Players.self()).results().firstOrNull()?.area ?: Area.rectangular(0, 0, 0, 0, 0)
         val safeTiles = Area.surrounding(Players.self().position, 10).tiles
             .filter { !dangerTiles.contains(it) }
             .sortedWith(compareBy({ !projectileSenderArea.isInMeleeDistance(it.area) }, { it.distance() }))
