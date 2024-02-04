@@ -13,10 +13,6 @@ enum class Bracelet(val itemName: String) {
         if (this == NONE) {
             return null
         }
-        val builder = ItemEntryBuilder().key(itemName).quantity(quantity).equipmentSlot(Equipment.Slot.HANDS)
-        if (Settings.RESTOCK_STRATEGIES.contains(this.itemName)) {
-            builder.restockMeta(Settings.RESTOCK_STRATEGIES[this.itemName])
-        }
-        return builder.build()
+        return ItemEntryBuilder().key(itemName).quantity(quantity).equipmentSlot(Equipment.Slot.HANDS).build()
     }
 }

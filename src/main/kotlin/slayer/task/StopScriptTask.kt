@@ -23,7 +23,11 @@ class StopScriptTask @Inject constructor(private val ctx: ScriptContext) : Task(
             return true
         }
         if (outOfMoney) {
-            Log.severe("Out of money")
+            Log.severe("Out of money to restock")
+            return true
+        }
+        if (ctx.outOfItems) {
+            Log.severe("Out of items")
             return true
         }
         return false

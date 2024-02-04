@@ -24,6 +24,7 @@ import org.rspeer.game.service.stockmarket.StockMarketService
 import slayer.*
 import slayer.data.Constants.HERB_SACK
 import slayer.data.Constants.SEED_BOX
+import slayer.data.Settings
 import java.util.function.Consumer
 import javax.inject.Inject
 
@@ -85,7 +86,7 @@ class BankingTask @Inject constructor(
 
             // Withdraw gear otherwise
             val backpackLoadOut = equipmentLoadout.toBackpackLoadout("slayer")
-            backpackLoadOut.outOfItemListener = OutOfItemListener(backpackLoadOut, stockMarket, inventoryCache)
+            backpackLoadOut.outOfItemListener = OutOfItemListener(ctx, backpackLoadOut, stockMarket, inventoryCache)
             Bank.open()
             backpackLoadOut.withdraw(Inventories.bank())
             return true
@@ -93,7 +94,7 @@ class BankingTask @Inject constructor(
 
         // Get rest of loadout
         val backpackLoadout = taskInfo.backpackLoadout()
-        backpackLoadout.outOfItemListener = OutOfItemListener(backpackLoadout, stockMarket, inventoryCache)
+        backpackLoadout.outOfItemListener = OutOfItemListener(ctx, backpackLoadout, stockMarket, inventoryCache)
         if (!backpackLoadout.isBagged) {
             if (!Bank.isOpen()) {
                 Bank.open()
@@ -160,6 +161,7 @@ class BankingTask @Inject constructor(
     }
 
     private class OutOfItemListener(
+        private val ctx: ScriptContext,
         private val loadout: BackpackLoadout,
         private val stockMarket: StockMarketService,
         private val cache: InventoryCache
@@ -171,7 +173,11 @@ class BankingTask @Inject constructor(
             }
 
             for (entry in loadout) {
-                val meta = entry.restockMeta ?: continue
+                // Fallback to settings restock strategy if the entry doesn't have a restock meta
+                val meta = entry.restockMeta ?: Settings.RESTOCK_STRATEGIES[entry.key] ?: run {
+                    ctx.outOfItems = true
+                    return
+                }
 
                 if (cache.isLoaded(InventoryType.BANK)) {
                     val remaining: Int = entry.getContained(cache.query(InventoryType.BANK))

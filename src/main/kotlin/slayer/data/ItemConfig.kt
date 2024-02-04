@@ -30,9 +30,6 @@ class ItemConfig private constructor(
         val builder = ItemEntryBuilder()
         builder.key(key)
         builder.quantity(amount)
-        Settings.RESTOCK_STRATEGIES[key]?.let {
-            builder.restockMeta(it)
-        }
         return builder.build()
     }
 }

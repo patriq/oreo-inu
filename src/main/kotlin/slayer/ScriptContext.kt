@@ -10,6 +10,7 @@ class ScriptContext {
     private var slayerTask: SlayerTask = SlayerTask.UNKNOWN
     private var noneTaskMillis: Long = -1
     private var superiorSpawned = false
+    var outOfItems = false
 
     private val supportedTasks: MutableMap<SlayerTask, SlayerTaskInfo> = mutableMapOf(
         SlayerTask.KALPHITE to Kalphite(this),
