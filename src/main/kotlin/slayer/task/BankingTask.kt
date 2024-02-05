@@ -9,7 +9,6 @@ import org.rspeer.game.House
 import org.rspeer.game.adapter.component.StockMarketTransaction
 import org.rspeer.game.adapter.component.StockMarketable
 import org.rspeer.game.adapter.component.inventory.Bank
-import org.rspeer.game.adapter.component.inventory.Equipment
 import org.rspeer.game.component.*
 import org.rspeer.game.config.item.entry.ItemEntry
 import org.rspeer.game.config.item.entry.builder.ItemEntryBuilder
@@ -172,10 +171,15 @@ class BankingTask @Inject constructor(
                 return
             }
 
+            // If the item is equipped then we don't need to bank it
+            if (Inventories.equipment().getCount { missingItem.getContained(it) } >= missingItem.quantity) {
+                return
+            }
+
             for (entry in loadout) {
                 // Fallback to settings restock strategy if the entry doesn't have a restock meta
                 val meta = entry.restockMeta ?: Settings.RESTOCK_STRATEGIES[entry.key] ?: run {
-                    ctx.outOfItems = true
+                    ctx.missingItems.add(entry.key)
                     return
                 }
 
