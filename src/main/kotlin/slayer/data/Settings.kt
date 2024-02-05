@@ -96,8 +96,12 @@ object Settings {
     /**
      * Offensive prayers
      */
-    val ATTACKING_ANIMATIONS = listOf(8145)
-    val OFFENSIVE_PRAYERS = mapOf<WeaponType, Prayer>(
+    val ATTACKING_ANIMATIONS = listOf(8145, 7004)
+    val WEAPON_SPEEDS = mapOf(
+        "Leaf-bladed battleaxe" to 5,
+    )
+    val OFFENSIVE_PRAYERS = mapOf(
+        WeaponType.TYPE_1 to Prayer.Modern.PIETY,
         WeaponType.TYPE_17 to Prayer.Modern.PIETY,
     )
 
