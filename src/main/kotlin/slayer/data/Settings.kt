@@ -14,7 +14,6 @@ object Settings {
      */
     val BLOCKING_TASKS = setOf(
         SlayerTask.HELLHOUNDS,
-        SlayerTask.CAVE_KRAKEN, // Skip since no slots
         SlayerTask.GREATER_DEMONS,
 //        SlayerTask.BLACK_DEMONS,
 //        SlayerTask.DRAKES,
@@ -27,6 +26,7 @@ object Settings {
      */
     val SKIPPING_TASKS = setOf(
         // Block (cant block more :c)
+        SlayerTask.CAVE_KRAKEN,
         SlayerTask.DRAKES,
 //        SlayerTask.GARGOYLES,
 //        SlayerTask.BLACK_DEMONS,
