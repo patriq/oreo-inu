@@ -26,7 +26,7 @@ class ScriptContext {
         SlayerTask.BLOODVELD to MutatedBloodveld(this),
         SlayerTask.HELLHOUNDS to Hellhounds(this),
         SlayerTask.BLACK_DRAGONS to BlackDragons(this),
-        SlayerTask.KURASK to Nechryael(this),
+        SlayerTask.KURASK to Kurasks(this),
         SlayerTask.ABERRANT_SPECTRES to AberrantSpectres(this),
         SlayerTask.SUQAHS to Suqahs(this),
         SlayerTask.GARGOYLES to Gargoyles(this),
