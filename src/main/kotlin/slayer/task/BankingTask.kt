@@ -176,11 +176,14 @@ class BankingTask @Inject constructor(
                 return
             }
 
-            for (entry in loadout) {
+            loadout.forEach { entry ->
                 // Fallback to settings restock strategy if the entry doesn't have a restock meta
                 val meta = entry.restockMeta ?: Settings.RESTOCK_STRATEGIES[entry.key] ?: run {
-                    ctx.missingItems.add(entry.key)
-                    return
+                    // If we can't restock the missing item, then it's over
+                    if (missingItem == entry) {
+                        ctx.missingItems.add(entry.key)
+                    }
+                    return@forEach
                 }
 
                 if (cache.isLoaded(InventoryType.BANK)) {
@@ -193,7 +196,7 @@ class BankingTask @Inject constructor(
                     Log.info("Remaining ${entry.key} in bank: $remaining.")
                     if (amount < fraction) {
                         //don't buy if we already have 50% of the purchase amount banked
-                        continue
+                        return@forEach
                     }
 
                     Log.info("Submitting buy order for ${entry.key} x $amount")
