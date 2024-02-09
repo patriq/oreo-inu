@@ -122,6 +122,7 @@ class BankingTask @Inject constructor(
         val inventoryReady = taskInfo.backpackReady()
         if (inventoryReady && Bank.isOpen()) {
             Interfaces.closeSubs()
+            EnterInput.asyncClose()
         }
         return !inventoryReady
     }
