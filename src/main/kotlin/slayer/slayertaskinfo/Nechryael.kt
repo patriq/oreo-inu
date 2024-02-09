@@ -2,7 +2,6 @@ package slayer.slayertaskinfo
 
 import api.containsPlayer
 import api.teleport.ConstructionCape
-import org.rspeer.game.adapter.component.inventory.Equipment
 import org.rspeer.game.component.tdi.Prayer
 import org.rspeer.game.movement.Movement
 import org.rspeer.game.position.Position
@@ -14,7 +13,6 @@ import slayer.ScriptContext
 import slayer.data.Bracelet
 import slayer.data.ItemConfig
 import slayer.data.Settings
-import slayer.data.Settings.KURASK_GEAR
 import slayer.teleportConstructionCape
 
 class Nechryael(ctx: ScriptContext) : BaseSlayerTaskInfo(ctx) {
@@ -41,7 +39,7 @@ class Nechryael(ctx: ScriptContext) : BaseSlayerTaskInfo(ctx) {
     override fun items(): List<ItemConfig> = listOf(
         ItemConfig(Settings.COMBAT_BOOSTING_POTION.allDoseNames, 1, 0),
         ItemConfig(Settings.PRAYER_POTION.allDoseNames, 5, 0),
-        ItemConfig(intArrayOf(Settings.FOOD), 10, 0),
+        ItemConfig(intArrayOf(Settings.FOOD), 10, if (ctx.isSuperiorAlive()) 6 else 0),
     )
 
     override fun bracelet(): Bracelet = Bracelet.SLAUGHTER
