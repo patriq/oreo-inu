@@ -11,6 +11,7 @@ class ScriptContext {
     private var noneTaskMillis: Long = -1
     private var superiorSpawned = false
     val missingItems = mutableSetOf<String>()
+    var died = false
 
     private val supportedTasks: MutableMap<SlayerTask, SlayerTaskInfo> = mutableMapOf(
         SlayerTask.KALPHITE to Kalphite(this),

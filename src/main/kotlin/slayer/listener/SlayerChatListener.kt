@@ -19,9 +19,16 @@ class SlayerChatListener(private val ctx: ScriptContext) {
         // Get the message
         val messageText = message.contents
 
+        // Check if we died
+        if (messageText.contains("Oh dear, you are dead!")) {
+            ctx.died = true
+            return
+        }
+
         // Check for superiors
         if (messageText.contains("A superior foe has appeared")) {
             ctx.superiorSpawned()
+            return
         }
 
         // Slayer task finished

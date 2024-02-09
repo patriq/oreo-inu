@@ -2,6 +2,8 @@ package slayer.task
 
 import org.rspeer.commons.logging.Log
 import org.rspeer.event.Subscribe
+import org.rspeer.game.component.InterfaceComposite
+import org.rspeer.game.component.Interfaces
 import org.rspeer.game.event.ChatMessageEvent
 import org.rspeer.game.script.Task
 import org.rspeer.game.script.TaskDescriptor
@@ -28,6 +30,14 @@ class StopScriptTask @Inject constructor(private val ctx: ScriptContext) : Task(
         }
         if (ctx.missingItems.isNotEmpty()) {
             Log.severe("Out of ${ctx.missingItems.joinToString()}")
+            return true
+        }
+        if (ctx.died) {
+            Interfaces.query(InterfaceComposite.LOGOUT_TAB, InterfaceComposite.WORLD_SELECT)
+                .actions("Logout")
+                .results()
+                .firstOrNull()?.interact("Logout")
+            Log.severe("Oh dear, you are dead!")
             return true
         }
         return false
