@@ -25,6 +25,9 @@ object Settings {
      * Skipping tasks
      */
     val SKIPPING_TASKS = setOf(
+        // Require bursting
+        SlayerTask.SMOKE_DEVILS,
+
         // Block (cant block more :c)
         SlayerTask.CAVE_KRAKEN,
         SlayerTask.DRAKES,
@@ -130,6 +133,7 @@ object Settings {
         "Prayer potion(4)" to RestockMeta(2434, 200, -2),
         Game.getClient().getItemDefinition(FOOD).name to RestockMeta(FOOD, 1000, -2),
         "Super combat potion(4)" to RestockMeta(12695, 50, -2),
+        "Divine super combat potion(4)" to RestockMeta(23685, 50, -2),
         "Antidote++(4)" to RestockMeta(5952, 20, -2),
         "Extended super antifire(4)" to RestockMeta(22209, 20, -2),
         Bracelet.SLAUGHTER.itemName to RestockMeta(21183, 100, -2),
