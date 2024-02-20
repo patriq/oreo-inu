@@ -5,6 +5,7 @@ import org.rspeer.game.House
 import org.rspeer.game.Vars
 import org.rspeer.game.combat.Combat
 import org.rspeer.game.component.Inventories
+import org.rspeer.game.component.tdi.Prayer
 import org.rspeer.game.component.tdi.Prayers
 import org.rspeer.game.effect.Health
 import org.rspeer.game.scene.SceneObjects
@@ -36,6 +37,10 @@ fun shouldRestoreStats(): Boolean {
 
 fun restoreStats(): Boolean {
     return SceneObjects.query().names(REJUVENATION_POOL).results().nearest()?.interact("Drink") == true
+}
+
+fun turnOffPrayers() {
+    Prayer.Modern.values().forEach { Prayers.toggle(false, it) }
 }
 
 fun teleportJewelleryBox(location: JewelleryBox.Location): Boolean {
