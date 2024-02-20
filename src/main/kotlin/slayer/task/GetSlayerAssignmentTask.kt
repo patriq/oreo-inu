@@ -6,12 +6,9 @@ import org.rspeer.game.component.tdi.Spell
 import org.rspeer.game.scene.SceneObjects
 import org.rspeer.game.script.Task
 import org.rspeer.game.script.TaskDescriptor
-import slayer.ScriptContext
+import slayer.*
 import slayer.data.Constants.NPC_ASSIGN_MESSAGE
 import slayer.data.Constants.OCCULT_ALTAR
-import slayer.restoreStats
-import slayer.shouldRestoreStats
-import slayer.teleportHouse
 import javax.inject.Inject
 
 
@@ -47,6 +44,9 @@ class GetSlayerAssignmentTask @Inject constructor(private val ctx: ScriptContext
             altar.interact("Lunar")
             return true
         }
+
+        // Turn off prayer
+        turnOffPrayers()
 
         // Perform NPC contact with Duradel
         if (Dialog.getOpenType(true) == null) {

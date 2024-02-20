@@ -59,6 +59,9 @@ class BankingTask @Inject constructor(
         // Travel to bank
         if (!BANKING_AREA.containsPlayer()) {
             if (House.isInside()) {
+                // Turn off prayers
+                turnOffPrayers()
+
                 // Restore stats
                 if (shouldRestoreStats()) {
                     restoreStats()

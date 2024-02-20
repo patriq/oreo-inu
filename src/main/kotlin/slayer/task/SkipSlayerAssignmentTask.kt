@@ -57,6 +57,9 @@ class SkipSlayerAssignmentTask @Inject constructor(private val ctx: ScriptContex
 
         // Teleport to edgeville if inside house
         if (House.isInside()) {
+            // Turn off prayer
+            turnOffPrayers()
+
             // Check if need restore stats
             if (shouldRestoreStats()) {
                 restoreStats()
