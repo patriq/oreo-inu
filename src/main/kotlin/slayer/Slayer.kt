@@ -56,6 +56,7 @@ class Slayer : TaskScript() {
     override fun tasks(): Array<Class<out Task>> {
         return arrayOf(
             StopScriptTask::class.java,
+            ForceLogTask::class.java,
 
             // High priority tasks
             RestockTask::class.java,
@@ -65,15 +66,15 @@ class Slayer : TaskScript() {
 
             // Core logic to check/get/skip tasks and handle prayer (in case we need to stop praying)
             CheckSlayerAssignmentTask::class.java,
-            PrayTask::class.java,
             GetSlayerAssignmentTask::class.java,
             SkipSlayerAssignmentTask::class.java,
 
-            // Banking, prayer and walking to area
+            // Banking and walking to area
             BankingTask::class.java,
             WalkToTaskAreaTask::class.java,
 
-            // Combat related (except prayer)
+            // Combat related
+            PrayTask::class.java,
             WearCombatEquipmentTask::class.java,
             FlickAggressivePrayerTask::class.java,
             EatAndDrinkTask::class.java,
