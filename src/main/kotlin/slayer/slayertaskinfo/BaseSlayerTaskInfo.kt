@@ -12,7 +12,7 @@ abstract class BaseSlayerTaskInfo(ctx: ScriptContext) : SlayerTaskInfo(ctx) {
     override fun equipment(): Map<Equipment.Slot, String> = BASE_GEAR
 
     override fun items(): List<ItemConfig> = listOf(
-        ItemConfig(COMBAT_BOOSTING_POTION.allDoseNames, 1, 0),
+        ItemConfig(COMBAT_BOOSTING_POTION.allDoseNames, 2, 0),
         ItemConfig(PRAYER_POTION.allDoseNames, 8, 0),
         ItemConfig(intArrayOf(FOOD), 5, 0),
     )
