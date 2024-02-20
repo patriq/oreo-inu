@@ -17,18 +17,11 @@ class PrayTask @Inject constructor(private val ctx: ScriptContext) : Task() {
             return false
         }
 
-        val shouldTurnOn = ctx.currentTaskInfo()?.standingArea()?.containsPlayer() ?: false
-        if (shouldTurnOn) {
-            val prayers = ctx.currentTaskInfo()?.prayers() ?: return false
-            if (Prayers.isActive(*prayers)) {
-                return false
-            }
-            return Prayers.select(true, *prayers)
-        } else {
-            if (Prayer.Modern.values().none { Prayers.isActive(it) }) {
-                return false
-            }
-            return Prayers.select(false, *Prayer.Modern.values())
+        if (ctx.currentTaskInfo()?.standingArea()?.containsPlayer() != true) {
+            return false
         }
+        val prayers = ctx.currentTaskInfo()?.prayers() ?: return false
+        prayers.forEach { Prayers.toggle(true, it) }
+        return true
     }
 }
