@@ -24,6 +24,9 @@ class GetSlayerAssignmentTask @Inject constructor(private val ctx: ScriptContext
             return false
         }
 
+        // Turn off prayer
+        turnOffPrayers()
+
         // Check if need restore stats
         if (shouldRestoreStats()) {
             if (!teleportHouse()) {
@@ -44,9 +47,6 @@ class GetSlayerAssignmentTask @Inject constructor(private val ctx: ScriptContext
             altar.interact("Lunar")
             return true
         }
-
-        // Turn off prayer
-        turnOffPrayers()
 
         // Perform NPC contact with Duradel
         if (Dialog.getOpenType(true) == null) {
